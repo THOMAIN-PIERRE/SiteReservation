@@ -1,0 +1,214 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+
+
+<div class="container-fluid">
+    <div class="row bg-warning text-dark mb-3 d-flex justify-content-between p-2">
+        <h1 class="card-title"><i class="fas fa-tachometer-alt"></i> <b>DASHBOARD</b><h1>
+        <span class="badge badge-dark text-warning"><a href="{{ path('admin_stats') }}" class="text-warning my-auto"><i class="fas fa-percentage"></i> Consulter les statistiques</a></span>
+    </div>    
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="card bg-primary text-white mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-users fa-3x" style="color:white; text-shadow: 4px 6px 4px black;"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.7em;"><b>{{stats.users}}</b> utilisateurs</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-dark mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-igloo fa-3x" style="color:white; text-shadow: 4px 6px 4px black;"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.7em;"><b>{{stats.ads}}</b> annonces</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="far fa-calendar-alt fa-3x" style="color:white; text-shadow: 4px 6px 4px black;"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.7em;"><b>{{stats.bookings}}</b> réservations</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <i class="fas fa-comments fa-3x" style="color:white; text-shadow: 4px 6px 4px black;"></i>
+                        </div>
+                        <div class="col-8">
+                            <h4 class="card-title" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.7em;"><b>{{stats.comments}}</b> avis</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-success">
+                <h2 class="alert-heading my-3" style="color:white; text-shadow: 4px 6px 4px black; font-size: 2em;"><i class="fas fa-arrow-circle-up"></i> <b>LES ANNONCES LES PLUS POPULAIRES</b></h2>
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th class="align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Annonces</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Propriétaires</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Notes moyennes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ad in bestAds %}
+                        <tr>
+                            <td class="align-middle">{{ad.title}}</td>
+                            <td class="text-center">
+                                <img src="{{ad.picture}}" alt="" class="avatar avatar-mini border border-light"><br> {{ad.firstName}} {{ad.lastName}}
+                            </td>
+                            <td class="text-center align-middle">
+                                <span class="badge badge-warning text-dark p-3">
+                                    {{ad.note | number_format(1, ",", " ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-danger">
+                <h2 class="alert-heading my-3" style="color:white; text-shadow: 4px 6px 4px black; font-size: 2em;"><i class="fas fa-arrow-circle-down"></i> <b>LES ANNONCES LES MOINS POPULAIRES</b></h2>
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th class="align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Annonces</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Propriétaires</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black;">Notes moyennes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for ad in worstAds %}
+                        <tr>
+                            <td class="align-middle">{{ad.title}}</td>
+                            <td class="text-center align-middle">
+                                <img src="{{ad.picture}}" alt="" class="avatar avatar-mini border border-light"><br> {{ad.firstName}} {{ad.lastName}}
+                            </td>
+                            <td class="text-center align-middle">
+                                <span class="badge badge-warning text-dark p-3">
+                                    {{ad.note | number_format(1, ",", " ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="alert bg-primary text-light mt-1" id="utils-4">
+                
+
+                    <h2 class="alert-heading my-3" style="color:white; text-shadow: 2px 6px 2px black; font-size: 2em;"><i class="fas fa-users"></i><strong> RESERVATIONS DU JOUR : <span class="badge badge-warning badge-lg p-3" style="color: black; text-shadow: none;">{{ todayBookings | length}}</span></strong></h2>
+                    {# <h2 class="alert-heading my-3" style="color:white; text-shadow: 2px 6px 2px black; font-size: 2em;"><i class="fas fa-users"></i><strong> RESERVATIONS DU JOUR : <span class="badge badge-warning badge-lg p-3" style="color: black; text-shadow: none;">{{ stats.bookingsAmount}}</span></strong></h2> #}
+               
+                {# <div class="alert alert-light text-dark rounded-lg d-flex justify-content-around mt-3">
+                    <p style="font-size: 1.5em;">Nombre de réservation  : <span class="badge badge-warning text-dark -simplebadge-lg p-3">{{ todayBookings | length}}</span></p>
+                    <p style="font-size: 1.5em;">Montant de transaction : <span class="badge badge-warning text-dark -simplebadge-lg p-3">
+                    {% for booking in todayBookingsAmount %}
+                    <p>{{ booking.depense }} €</p>
+                    </span></p>
+                    {% endfor %}
+                </div> #}
+
+                <table class="table text-white">
+                    <thead>
+                        <tr>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.5em;">n° réservation</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.5em;">DATE D'ARRIVEE</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.5em;">DATE DE DEPART</th>
+                            <th class="text-center align-middle" style="color:white; text-shadow: 4px 6px 4px black; font-size: 1.5em;">MONTANT DU SEJOUR</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in todayBookings %}
+                        <tr>
+                            <td class="text-center align-middle align-middle"><strong>{{ booking.id }}</strong></td>
+                            <td class="text-center align-middle align-middle"><strong>{{ booking.startDate | date("d/m/Y") }}</strong></td>
+                            <td class="text-center align-middle align-middle"><strong>{{ booking.endDate | date("d/m/Y") }}</strong></td>
+                            <td class="text-center align-middle align-middle"><strong>{{ booking.amount }} €</strong></td>                          
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+           
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

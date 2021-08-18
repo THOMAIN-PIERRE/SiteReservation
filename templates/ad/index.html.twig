@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos annonces{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+{# <h1 class="col-md-12 mt-2 mb-4 text-center bg-success rounded-lg text-light p-2">LES ANNONCES DE NOS HOTES</h1> #}
+
+<div class="row">
+
+<div class="col-md-2 float-left mb-5">
+    {# {{ form_start(form, {attr: {class: 'filter'}}) }} #}
+{# <div class="col-md-12"> #}
+{# <div class="row bg-danger rounded-lg p-3"> #}
+
+    {% include 'ad/_filter2.html.twig' with {form: form} only %}
+
+    
+    
+    {# <div class="container-fluid">
+        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-filter"></i><b> FILTRER</b></button>
+    </div> #}
+{# </div> #}
+{# </div> #}
+</div>
+
+{# <div class="float-left">
+    <div class="col-md-4">
+        <p class="text-light text-center"><i class="fas fa-home"></i> <b>LOGEMENT</b></p>
+        <h4><b>{{ form_row(form.categories) }}</b></h4>
+    </div>
+</div> #}
+
+<div class="col-md-10 mb-5">
+
+    <h1 class="mb-3 text-center bg-success rounded-lg text-light p-1"><b>LES ANNONCES DE NOS HOTES</b></h1>
+   
+    {# <div class="float-left col-md-4">
+        <p class="text-light text-center"><i class="fas fa-home"></i> <b>LOGEMENT</b></p>
+        <h4><b>{{ form_row(form.categories) }}</b></h4>
+    </div> #}
+    
+    {# <h1 class="mt-2 mb-5 text-center">Les annonces de nos hôtes</h1> #}
+
+    <div class="row">
+        {% for ad in ads %} 
+        {# {% for ad in pagination.adValidated %} #}
+        {# {% for ad in adValidated %}   Pour limiter l'affichage aux annoncés ayant été validées par le modérateur #}
+        {% if ad.status is same as ("Validated") %}
+            {% include "ad/_ad.html.twig" %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+</div>
+
+<div class="m-auto mb-5">
+
+    {{ knp_pagination_render(ads) }}
+
+    {# {{ knp_pagination_render(ad) }} #}
+    {# {{ pagination(display) }} #}
+   
+    
+</div>
+
+
+{% endblock %}

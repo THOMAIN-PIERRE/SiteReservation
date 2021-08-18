@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block body %}
+
+{% block carousel %}
+    
+    {% include "partials/carousel.html.twig" %}
+
+{% endblock %}
+
+<div class="container-fluid mb-2">
+</div>
+
+<div class="container mb-5">
+    <div class="jumbotron mt-3 alert alert-success" style="box-shadow: 10px 10px 10px grey;">
+        <h1 class="display-3 text-center" style="font-size: 5rem; font-family: 'Permanent Marker', cursive;">Bienvenue sur <img src="/img/logo-loc-appart3.png" alt="logo Loc'Appart" class="rounded-lg" ></h1>
+        <p class="lead mt-4" style="font-size: 1.5rem; font-family: 'Permanent Marker', cursive;">Nous mettons en relation les voyageurs aventureux recherchant des opportunités d'hébergements et des prpriétaires sympas souhaitant gagner de l'argent en proposant leur bien à la location</p>
+        {# <hr class="my-4"> #}
+        {# <div class="text-center my-3 d-flex justify-content-around">
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+            <span class="dot-white"></span>
+        </div> #}
+        <p  class="mt-4" style="font-size: 1.5rem; font-family: 'Permanent Marker', cursive;">Vous voyagez ? Vous cherchez un logement abordable et sympa ?</p>
+        <p class="lead">
+            <a class="btn btn-danger btn-lg mt-2" href="{{ path('ads_index') }}" role="button"><b  style="font-size: 1.5rem; font-family: 'Permanent Marker', cursive;">NOS ANNONCES</b></a>
+        </p>
+    </div>
+
+
+    <!-- APPARTEMENTS STARS (on peut même en définir le nombre présentés dans le HomeController.php) -->
+        {#
+        {{dump(bestAds)}} <!-- Permet de voir le contenu de la variable -->
+        #}
+    <h2 class="h1 my-5"><i class="far fa-heart"></i> Vous plébiscitez ces annonces</h2>
+
+    <div class="row">
+        {# Boucle qui affiche les annonces les mieux notées de notre site #}
+        {% for data in bestAds %}
+            {# On inclu l'affichage d'ensemble d'annonce, en spécifiant que la variable "ad" vaudra data.annonce (data.annonce est le contenu de l'annonce #}
+            {#  "data est la variable crée dans la boucle for ci-dessus et représente "bestAds" #}
+            {# donc "data.annonce" représente ici la clé du tableau annonce, faire un dump(bestAds) pour bien comprendre, et verifier la clé "annonce" qui est des "data" des "bestAds" #}
+            {% include "ad/_ad.html.twig" with {'ad': data.annonce}%}
+        {% endfor %}
+    </div>
+
+    <!-- PROPRIETAIRES STARS d'au moins 3 commentaires (on peut même en définir le nombre de propriétaires stars présentés dans le HomeController.php) -->
+    {# <h2 class="h1 my-5"><i class="fas fa-medal"></i> Nos hôtes stars</h2> #}
+    <h2 class="h1 my-5"><i class="fas fa-award"></i> Nos hôtes stars</h2>
+
+    <div class="row">
+    {# Boucle qui affiche les utilisateurs qui possèdent les annonces les mieux notées de notre site #}
+        {% for data in bestUsers %}
+        <div class="col">
+            <div class="card border-success mb-3" style="box-shadow: 10px 10px 10px grey;">
+                <div class="card-body">
+                    <h4 class="card-title">{{data.user.fullName}}</h4>
+
+                    <hr>
+
+                    <div class="card-text">
+                        <img src="{{data.user.picture}}" alt="Avatar de {{data.user.fullName}}" class="img-fluid float-left mr-3 mb-3">
+                        <h2 class="mt-4">Présentation :</h2>
+                        <p>{{data.user.introduction}}</p>
+                        <!--  Lien vers la description de l'utilisateur (utilisateur du slug de l'utilisateur en paramètre de la fonction "path" -->
+                        <a href="{{path('user_show', {'slug': data.user.slug})}}" class="btn btn-success float-right mt-2"><b>En savoir <i class="fas fa-plus-circle"></i></b></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+ 
+{% endblock %}

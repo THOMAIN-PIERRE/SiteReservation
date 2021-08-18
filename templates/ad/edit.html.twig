@@ -1,0 +1,173 @@
+{# MODIFICATION D'UNE ANNONCE #}
+
+{% extends 'base.html.twig'%}
+
+{% block title %}Modification d'une annonce{% endblock %}
+
+{# AFFICHE NOS THEME PERSONNALISES #}
+{% form_theme form 'ad/_collection.html.twig' %} {# RAPPEL : Le tag form_theme permet d'indiquer à twig un thème spécifique pour un formulaire,
+et ici le code des themes est dans le fichier ad/_collection.html, s'il était dans ce même fichier il faudrait écrire _self à la place de la route #}
+
+
+{% block stylesheets %}
+
+<!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Google Maps Javascript library - Ma clé d'API = AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E"></script>
+
+
+<script>
+
+var searchInput = 'ad_address';
+
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+    });
+	
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        document.getElementById('ad_latitude').value = near_place.geometry.location.lat();
+        document.getElementById('ad_longitude').value = near_place.geometry.location.lng();
+		
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+
+$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('ad_latitude').value = '';
+    document.getElementById('ad_longitude').value = '';
+	
+    document.getElementById('latitude_view').innerHTML = '';
+    document.getElementById('longitude_view').innerHTML = '';
+});
+
+</script>
+
+{% endblock %}
+
+
+{% block body %}
+
+<h1 class="mt-5 mb-3 text-center rounded-lg">Modifier une annonce</h1> 
+<div class="container alert alert-light">
+    <p style="font-size: 1.5rem"> Vous êtes sur le point de modifier l'annonce suivante appartenant à <strong>{{ad.author.fullName}} <img src="{{app.user.picture}}" alt="propriétaire" class="avatar avatar-header"></strong></p>
+    <div class="row mb-3 bg-success rounded-lg p-3 ">
+        <div class="col-md-4">
+            <img src="{{ ad.coverImage }}" class="img-fluid border border-light">
+        </div>
+        <div class="col-md-8 m-auto">
+            <h2 class="mb-4 text-light">{{ad.title}}</h2>
+        </div>
+    </div>
+</div>
+<div class="text-center my-2">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+    <div class="container mb-5">
+        {# <h1>Modifier l'annonce : {{ad.title}} </h1> #}
+
+        {{ form_start(form) }}
+
+            {# AFFICHAGE DE NOTRE FORMULAIRE #}
+            {# {{ form_widget(form) }} form_widget() Affiche un champs ou un groupe de champs #}
+
+            {# <button type="submit" class="btn btn-primary">Valider les modifications</button> #}
+
+
+                {{form_start(form)}}
+
+ 
+                    <div class="alert alert-light">
+                        <h2 class="text-center my-2">Informations générales</h2>
+                        
+                        {{ form_row(form.title) }}
+                        <div class="row">
+                        <div class="col-md-6">
+                        {{form_row(form.city)}}
+                        </div>
+                        <div class="col-md-4">
+                        {{form_row(form.category)}}
+                        </div>
+                        <div class="col-md-2">
+                        {{form_row(form.tel)}}
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-7">
+                        {{form_row(form.address, {'attr': {'id': 'ad_address'}}) }}
+                        {# <label>Adresse</label>
+                        <input type="text" class="form-control" id="search_input" placeholder="Saisissez une adresse"/> #}
+                        </div>
+                        <div>
+                        {{form_row(form.latitude, {'attr': {'id': 'ad_latitude'}}) }}
+                        {# <input type="hidden" id="loc_lat" /> #}
+                        </div>
+                        <div>
+                        {{form_row(form.longitude, {'attr': {'id': 'ad_longitude'}}) }}
+                        {# <input type="hidden" id="loc_long" /> #}
+                        </div>
+                        <div class="col-md-2">
+                        {{form_row(form.zipCode)}}
+                        </div>
+                        <div class="col-md-3">
+                        {{form_row(form.country)}}
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-3">
+                        {{ form_row(form.price) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.rooms) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.bed) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.traveler) }}
+                        </div>
+                        </div>
+                    </div>
+                    <div class="text-center my-2">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="alert alert-light">
+                        <h2 class="text-center">Visuels de l'annonce</h2>
+                        {{ form_row(form.coverImage) }}
+                        {{ form_row(form.images) }}
+                        {# Le bouton "Ajouter une image" se trouve dans le fichier '_collection.html.twig' généré à l'appel du thème twig personnalisé #}
+                    </div>
+                    <div class="text-center my-2">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+
+                
+                <div class="alert alert-light">
+                    <h2 class="text-center">Détails de l'annonce</h2>
+                    {{ form_row(form.introduction) }}
+                    {{ form_row(form.text) }}
+                </div>
+
+
+        {{ form_end(form) }} {# form_end() va, par défaut, forcer l'affichage de tout les champs absents #}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {# Script JQUERY qui va permettre lorsqu'on appuie sur le boutton 'Ajouter/Supprimer une image' de faire apparaitre l'entrée de l'url et de la légende ou la supprimée #}
+    <script src="/js/ad.js"></script>
+{% endblock %}

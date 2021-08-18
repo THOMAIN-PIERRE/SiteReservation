@@ -1,0 +1,46 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modération d'une demande d'inscription{% endblock %}
+
+{% block body %}
+
+<div class="container mb-5">
+    <h1 class="my-5">Moderation de la demande d'inscription n° {{user.id}}</h1>
+        <div class="row alert alert-success align-items-end p-4">
+            <div class="col-md-9">
+                <p><strong>DEMANDEUR : </strong> {{user.firstname}} {{user.lastname}}</p>
+                <p><strong>EMAIL : </strong> {{user.email}}</p>
+                <p><strong>DATE DE LA DEMANDE : </strong> {{user.createdAt | date('d/m/y H:i')}}</p>
+                <p><strong>BREVE PRESENTATION DU DEMANDEUR :<br> </strong> {{user.introduction}}</p>
+                <p><strong>PRESENTATION DETAILLEE DU DEMANDEUR :<br> </strong> {{user.description | raw}}</p>
+
+            </div>
+            <div class="col-md-3">
+                <p class="text-center"><strong>PHOTO DE PROFIL </strong><img src="{{user.picture}}" alt="propriétaire" class="img-fluid border border-light mt-2 mb-2"></p>
+            </div>
+       
+        
+
+    {{form_start(form)}}
+
+    {# {{form_widget(form)}} #}
+
+    <div class="alert alert-light rounded-lg mt-4">
+        <div class="col-md-12">
+            {{form_row(form.status)}}
+        </div>
+        {# <div class="col-md-6">
+        <h1>Explici</h1> #}
+            {# {{form_row(form.userStatus)}} #}
+        {# </div> #}
+        {# <button type="submit" class="btn btn-success mt-3 mb-4">
+            <i class="fas fa-check"></i> <b>Enregistrer les modifications</b>
+        </button> #}
+    {{form_end(form)}}
+    </div>
+    </div>
+
+
+</div>
+
+{% endblock %}

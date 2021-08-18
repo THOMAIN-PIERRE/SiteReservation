@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+
+<div class="container mb-5">
+    <h1 class="my-4">Inscription</h1>
+
+    {{form_start(form)}}
+
+    <div class="row">
+        <div class="col-5">
+            <div class="alert alert-light">
+                <h2 class="alert-heading text-center">1~Informations générales</h2>
+                {# <hr> #}
+                <div class="text-center mt-4 mb-4">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    {{form_row(form.firstName)}}
+                    </div>
+                    <div class="col-md-6">
+                    {{form_row(form.lastName)}}
+                    </div>
+                </div>
+                {{form_row(form.email)}}
+                {{form_row(form.picture)}}
+            </div>
+            <div class="alert alert-light">
+                <h2 class="alert-heading text-center">2~Mot de passe</h2>
+                {# <hr> #}
+                <div class="text-center mt-4 mb-4">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                {{form_row(form.hash)}}
+                {{form_row(form.passwordConfirm)}}
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="alert alert-light">
+                <h2 class="alert-heading text-center">3~Détails</h2>
+                {# <hr> #}
+                <div class="text-center mt-4 mb-4">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                {{form_row(form.introduction)}}
+                {{form_row(form.description)}}
+                {# <hr> #}
+                <div class="text-center mt-3 mb-3">
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                </div>
+                {{form_row(form.agreeTerms)}}
+                
+                <div class="mt-1">
+                    {# <div class="dropdown-divider"></div> #}
+                    <p>* Consultez ici nos conditions générales d'utilisation et notre politique de confidentialité :</p>
+                    <a href="{{ path('use_terms_cgu') }}" class="badge badge-success p-2 text-light"><strong>Conditions générales d'utilisation</strong></a>
+                    <a href="{{ path('use_terms_politiqueConfidentialite') }}" class="badge badge-success p-2 text-light ml-3"><strong>Politique de confidentialité</strong></a>
+                </div>
+                {# <hr> #}
+                <div class="text-center mt-3 mb-4">
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                    <span class="dot mr-5"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check"></i>
+                    <b>ENREGISTRER</b></button>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    {{form_end(form)}}
+</div>
+
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Création d'une annonce{% endblock %}
+
+
+{% form_theme form 'ad/_collection.html.twig' %}
+
+{% block stylesheets %}
+
+<!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Google Maps Javascript library - Ma clé d'API = AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E"></script>
+
+
+<script>
+
+var searchInput = 'ad_address';
+
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+    });
+	
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        document.getElementById('ad_latitude').value = near_place.geometry.location.lat();
+        document.getElementById('ad_longitude').value = near_place.geometry.location.lng();
+		
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+
+$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('ad_latitude').value = '';
+    document.getElementById('ad_longitude').value = '';
+	
+    document.getElementById('latitude_view').innerHTML = '';
+    document.getElementById('longitude_view').innerHTML = '';
+});
+
+</script>
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container mb-5">
+    <h1 class="mt-5 mb-4 text-center rounded-lg">Créer une annonce</h1> 
+
+<div class="text-center my-2">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+{# <div class="container bg-light rounded-lg p-3 mb-3"> #}
+    {{form_start(form)}}
+
+    <div class="row">
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2 class="text-center my-2">Informations générales</h2>
+                        
+                        {{ form_row(form.title) }}
+                        <div class="row">
+                        <div class="col-md-6">
+                        {{form_row(form.city)}}
+                        </div>
+                        <div class="col-md-4">
+                        {{form_row(form.category)}}
+                        </div>
+                        <div class="col-md-2">
+                        {{form_row(form.tel)}}
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-7">
+                        {{form_row(form.address, {'attr': {'id': 'ad_address'}}) }}
+                        {# <label>Adresse</label>
+                        <input type="text" class="form-control" id="search_input" placeholder="Saisissez une adresse"/> #}
+                        </div>
+                        <div>
+                        {{form_row(form.latitude, {'attr': {'id': 'ad_latitude'}}) }}
+                        {# <input type="hidden" id="loc_lat" /> #}
+                        </div>
+                        <div>
+                        {{form_row(form.longitude, {'attr': {'id': 'ad_longitude'}}) }}
+                        {# <input type="hidden" id="loc_long" /> #}
+                        </div>
+                        <div class="col-md-2">
+                        {{form_row(form.zipCode)}}
+                        </div>
+                        <div class="col-md-3">
+                        {{form_row(form.country)}}
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-3">
+                        {{ form_row(form.price) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.rooms) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.bed) }}
+                        </div>
+                        <div class="col-md-3">
+                        {{ form_row(form.traveler) }}
+                        </div>
+                        </div>
+                    </div>
+                    <div class="text-center my-2">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <div class="alert alert-light">
+                        <h2 class="text-center">Visuels de l'annonce</h2>
+                        {{ form_row(form.coverImage) }}
+                        {{ form_row(form.images) }}
+                        {# Le bouton "Ajouter une image" se trouve dans le fichier '_collection.html.twig' généré à l'appel du thème twig personnalisé #}
+                    </div>
+                    <div class="text-center my-2">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+
+                
+                <div class="alert alert-light">
+                    <h2 class="text-center">Détails de l'annonce</h2>
+                    {{ form_row(form.introduction) }}
+                    {{ form_row(form.text) }}
+                </div>
+
+
+                <!-- Autocomplete location search input --> 
+                {# <div class="form-group">
+                    <label>Adresse</label>
+                    <input type="text" class="form-control" id="search_input" placeholder="Saisissez une adresse"/>
+                    <input type="hidden" id="loc_lat" />
+                    <input type="hidden" id="loc_long" /> #}
+                    {# <input type="hidden" id="loc_city" />
+                    <input type="hidden" id="loc_country" /> #}
+                {# </div> #}
+
+                <!-- Display latitude and longitude -->
+                {# <div class="latlong-view">
+                    <p><b>Latitude:</b> <span id="latitude_view"></span></p>
+                    <p><b>Longitude:</b> <span id="longitude_view"></span></p> #}
+                    {# <p><b>Ville:</b> <span id="city_view"></span></p>
+                    <p><b>Pays:</b> <span id="country_view"></span></p> #}
+                {# </div> #}
+            
+
+    <div class="alert alert-danger text-light clearfix mt-3">
+        <h2><b>Proposer mon bien !</b></h2>
+        <p>Vous êtes sur le point de créer votre annonce sur le site et de devenir hôte.</br>
+        BIENVENUE DANS LA COMMUNAUTE ! Votre annonce sera accessible sur le site après vérification et validation par notre équipe de modération.</p>
+        <p><b class="bg-success">{{ form_row(form.submit) }}</b></p>   
+    </div>
+            
+            {# <button type="submit" class="btn btn-success">
+                <i class="fas fa-check"></i> &nbsp;
+                Créer la nouvelle annonce
+            </button> #}
+
+
+    {{form_end(form)}}
+
+</div>
+</div>
+
+</div>
+
+
+{% block javascripts %}
+    {# Script JQUERY qui va permettre lorsqu'on appuie sur le boutton 'Ajouter/Supprimer une image' de faire apparaitre l'entrée de l'url et de la légende ou la supprimer #}
+    <script src="/js/ad.js"></script>
+
+    <!-- jQuery Library -->
+    {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> #}
+    <!-- Google Maps Javascript library -->
+    {# <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E"></script> #}
+
+
+
+
+
+{% endblock %}
+
+{% endblock %}
+

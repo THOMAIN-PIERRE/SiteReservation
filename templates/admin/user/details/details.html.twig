@@ -1,0 +1,71 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    
+        <div class="container-fluid">
+            {# <div class="row">
+                <div class="col table-responsive mt-5"> #}
+                    {# <a href="{{ path('admin_role_new') }}" class="btn btn-success mb-5" style="float: right"><strong><i class="fas fa-plus"></i> AJOUTER</strong></a> #}
+                    <h1 class="mt-5 mb-5">PROFIL DETAILLE ~ <span class="bg-warning text-dark p-2 rounded-lg rounded-circle">{{ stats.validatedUser }}</span></h1>
+                    {% if stats.waitingUser > 0 %}
+                        {# <a href="{{ path('admin_comment_toValidate') }}"><h2 class="bg-danger p-2 mt-3 text-light" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle fa-2x"></i><strong> {{ stats.waitingComment }} commentaire(s)</strong> en attente de validation</h2></a> #}
+                        <a href="{{ path('admin_user_details_toValidate') }}" class="mb-4"><h2 class="bg-danger p-3 mt-3 text-light rounded-lg mb-4" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle"></i><strong> {% if stats.waitingUser is null %} Aucun utilisateur {% elseif stats.waitingUser == 1 %} {{ stats.waitingUser }} utilisateur {% else %} {{ stats.waitingUser }} utilisateurs {% endif %}</strong> en attente de validation !</h2></a>
+                    {% endif %}
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">#</th>
+                                <th class="text-center align-middle">Nom</th>
+                                <th class="text-center align-middle">Prénom</th>
+                                <th class="text-center align-middle">Email</th>
+                                <th class="text-center align-middle">Photo</th>
+                                <th class="text-center align-middle">Date d'inscription</th>
+                                <th class="text-center align-middle">Rôle</th>
+                                {# <th class="text-center align-middle">Date d'inscription</th> #}
+                                <th class="text-center align-middle">Courte présentation</th>
+                                <th class="text-center align-middle">Description détaillée</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        <thead>
+                        {% for user in pagination.userValidated %}
+                                <tr>
+                                    <td class="text-center align-middle">{{user.id}}</td>
+                                    <td class="text-center align-middle"><b>{{user.lastname}}</b></td>
+                                    <td class="text-center align-middle"><b>{{user.firstname}}</b></td>
+                                    <td class="text-center align-middle"><b>{{user.email}}</b></td>
+                                    <td class="text-center align-middle"><b><img src="{{user.picture}}" alt="Avatar de {{app.user.fullName}}" class="avatar avatar-header border border-success"></b></td>
+                                    {# <td class="text-center align-middle align-items-center">{{user.createdAt | date('d/m/y H:i')}}</td> #}
+                                    <td class="text-center align-middle align-items-center" style="width: 5%;">{{user.createdAt | date('d/m/y H:i')}}</td>
+                                    <td class="text-center align-middle align-items-center font-weight-bold">
+                                    <!-- On boucle sur les rôles -->
+                                    {% for role in user.roles %}
+                                        {% if role == "ROLE_USER" %}
+                                            UTILISATEUR
+                                        {% elseif role == "ROLE_CREATOR" %}
+                                            CONTRIBUTEUR
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            ADMINISTRATEUR
+                                        {% endif %}
+                                        {# {{ role }} #}
+                                    {% endfor %}
+                                    </td>
+                                    <td class="text-left align-middle align-items-center" style="width: 20%;">{{ user.introduction | raw}}</td>
+                                    <td class="text-left align-middle align-items-center">{{ user.description | raw }}</td>
+                                    <td class="text-center align-middle">
+                                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-success mr-2 mb-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                        {# <a href=""class="btn btn-danger mr-2 mb-2"><i class="fas fa-eye"></i></a> #}
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </table>
+
+                    {{ pagination.display() }}
+
+                {# </div>
+            </div> #}
+        </div>
+    </div>
+
+ {% endblock %}  

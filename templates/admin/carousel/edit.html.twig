@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}EDITION D'UN ELEMENT DU CAROUSEL{% endblock %}
+
+{% block body %}
+
+<div class="container col-6 mt-5 alert alert-light rounded-lg">
+    <h1 class="text-center">MODIFIER L'ELEMENT <b>n° {{ carousel.id}}</b> DU CAROUSEL</h1>
+    <div class="text-center mt-4 mb-4">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+    {{form_start(form)}}
+    
+    <div class="container mt-5">
+    <div class="row ">
+        <div class="col-4">   
+            <img src="{{ carousel.illustration }}" alt="" width="240px" height="160px"/>
+        </div>
+        <div class="col-8"> 
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
+        </div>
+    </div>
+    <div class="row mt-3">
+    <div class="col-md-12">  
+        {{ form_row(form.illustration) }}   
+    </div>
+    </div>
+    <div class="row mt-3">
+    <div class="col-md-3">  
+        {{ form_row(form.btn_title) }}
+    </div>
+    <div class="col-md-9">  
+        {{ form_row(form.btn_url) }}
+    </div>
+    </div>
+    <div class="row m-auto my-3">  
+        {{ form_row(form.submit) }}   
+    </div>
+    </div>
+       
+ 
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

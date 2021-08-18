@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion du carousel{% endblock %}
+
+{% block body %}
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col table-responsive mt-5">
+                    <a href="{{ path('admin_carousel_create') }}" class="btn btn-success mb-5" style="float: right"><strong><i class="fas fa-plus"></i> AJOUTER UN ELEMENT</strong></a>
+                    <h2 class="mb-5">GESTION DES ELEMENTS DU CAROUSEL</h2>
+                    <table class="table table-hover mt-3">
+                        <thead>
+
+                            <tr>
+                                <th class="text-center align-middle">#</th>
+                                <th class="text-center align-middle">Photo</th>
+                                <th class="text-center align-middle">Titre</th>
+                                <th class="text-center align-middle">Texte</th>
+                                <th class="text-center align-middle">Texte du bouton</th>
+                                <th class="text-center align-middle">Le bouton renvoie vers</th>
+                                <th class="text-center align-middle">Actions</th>
+                            </tr>
+                        <thead>
+                        {% for carousel in pagination.carousel %}
+                                <tr>
+                                    <td class="text-center align-middle">{{carousel.id}}</td>
+                                    <td class="text-center align-middle mt-5 text-dark" style="width: 25%;"><img src="{{carousel.illustration}}" alt="" class="img-fluid"/></td>
+                                    <td class="text-left align-middle" style="width: 15%;"><b>{{carousel.title}}</b></td>
+                                    <td class="text-left align-middle align-items-center" style="width: 35%;">{{carousel.content}}</td>
+                                    <td class="text-center align-middle mt-5 text-dark" style="width: 10%;"><b>{{carousel.btnTitle}}</b></td>
+                                    <td class="text-center align-middle mt-5 text-dark" style="width: 15%;"><img src="{{carousel.btnUrl}}" alt="" class="img-fluid"/></td>
+                                    <td class="text-center align-middle">
+                                        <a href="{{ path('admin_carousel_edit', {'id': carousel.id}) }}" class="btn btn-success mr-2 mb-2"><i class="fas fa-edit" aria-hidden="true"></i></a>
+                                        <a href="{{ path('admin_carousel_delete', {'id': carousel.id}) }}"class="btn btn-danger mr-2 mb-2"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </table>
+
+                    {{ pagination.display() }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+ {% endblock %}  

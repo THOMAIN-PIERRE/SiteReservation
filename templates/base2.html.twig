@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html class="h-100">
+    <head>
+        <meta charset="UTF-8">
+        <title>Symbnb - {% block title %}Administration{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <script src="https://kit.fontawesome.com/f772e891c1.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/app.css">
+
+        {% block stylesheets %}
+        
+        <style>
+            .filter{
+                display: block;
+                position: sticky;
+                top: 28vh;
+            }
+        </style>
+        
+        {% endblock %}
+    </head>
+    <body class="d-flex flex-column h-100 cover-image">
+
+        {% include "partials/header.html.twig" %}
+        
+        {% block body %}{% endblock %}
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

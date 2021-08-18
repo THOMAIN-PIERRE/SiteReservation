@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}CREATION D'UN ROLE{% endblock %}
+
+{% block body %}
+
+<div class="container col-6 mt-5 mb-4 alert alert-light rounded-lg">
+    <h1 class="mt-2 text-center">CREER UN ROLE</h1>
+
+    <div class="text-center mt-3 mb-4">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>  
+
+    {{form_start(form)}}
+    
+
+    <div class="row">
+        <div class="col-4"> 
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col-8">  
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <div class="mt-3">  
+        {{ form_row(form.submit) }}
+    </div>
+       
+ 
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

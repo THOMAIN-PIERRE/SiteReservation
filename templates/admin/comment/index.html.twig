@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des commentaires{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    {# <h1 class="my-5">Administration des commentaires</h1> #}
+    <h1 class="mt-5 mb-4">Commentaires publiés ~ <span class="bg-warning text-dark p-2 rounded-lg rounded-circle">{{ stats.validatedComment }}</span></h1>
+
+    {% if stats.waitingComment > 0 %}
+        {# <a href="{{ path('admin_comment_toValidate') }}"><h2 class="bg-danger p-2 mt-3 text-light" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle fa-2x"></i><strong> {{ stats.waitingComment }} commentaire(s)</strong> en attente de validation</h2></a> #}
+        <a href="{{ path('admin_comment_toValidate') }}" class="mb-4"><h2 class="bg-danger p-3 mt-3 text-light rounded-lg mb-4" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle"></i><strong> {% if stats.waitingUser is null %} Aucun commentaire {% elseif stats.waitingComment == 1 %} {{ stats.waitingComment }} commentaire {% else %} {{ stats.waitingComment }} commentaires {% endif %} en attente de validation !</h2></a>
+    {% endif %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="align-middle">Id</th>
+                <th class="text-center align-middle">Date</th>
+                <th class="text-center align-middle">Auteur</th>
+                <th class="align-middle">Commentaire</th>
+                <th class="text-center align-middle">Note</th>
+                <th class="text-center align-middle">Annonce</th>
+                <th class="text-center align-middle">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in pagination.commentValidated %}
+            <tr>
+                <td class="align-middle">{{comment.id}}</td>
+                <td class="text-center align-middle">{{comment.createdAt|date('d/m/y H:i')}}</td>
+                <td class="text-center align-middle"><img src="{{comment.author.picture}}" alt="Avatar de {{comment.author.fullName}}" class="avatar avatar-mini"><br> {{comment.author.fullName}}</td>
+                <td class="align-middle" style="width: 40%;"><i>{{comment.content | raw}}</i></td>
+                <td class="text-center align-middle">
+                    <span class="badge badge-warning text-dark p-3">{{comment.rating}}</span>
+                </td>
+                <td class="align-middle">{{comment.ad.title}}</td>
+                <td class="text-center align-middle">
+                    <a href="{{path('admin_comment_edit', {'id': comment.id})}}" class="btn btn-primary mb-1">
+                    <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="{{path('admin_comment_delete', {'id': comment.id})}}" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{{ pagination.display() }}
+</div>
+
+{% endblock %}

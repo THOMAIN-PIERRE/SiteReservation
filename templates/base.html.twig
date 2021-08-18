@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html class="h-100">
+    <head>
+        <meta charset="UTF-8">
+        <title>Symbnb - {% block title %}Bienvenue{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        {# <link rel="stylesheet" href="/build/css/app.css"> #}
+
+        {# <link rel="stylesheet" href="{{ asset('/css/app.css') }}"> #}
+
+        <script src="https://kit.fontawesome.com/f772e891c1.js" crossorigin="anonymous"></script>
+
+        <!-- Intégration de la librairie JS Algolia Places grâce à un CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0"></script>
+
+        <link rel="stylesheet" href="/css/app.css">
+
+        <!-- Leaflet -->
+        {# <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" /> #}
+
+        <!-- Custom styles for this template -->
+    	<link href={{ asset('assets/css/carousel.css')}} rel="stylesheet">
+
+        {% block stylesheets %}{% endblock %}
+        
+    </head>
+    <body class="d-flex flex-column h-100">
+
+        {% include "partials/header.html.twig" %}
+        
+        {# {% block body %} #}
+        
+        {# <main {% if block('carousel') is defined %}
+                style="margin-top: 2vh;"
+                {% else %}
+                style="margin-top: 13vh;"
+                {% endif %}
+                > #}
+
+
+        
+
+    
+    {# {% endif %} #}
+
+    {# </main> #}
+        
+        {% block body %}
+        
+        
+        {% endblock %}
+
+        {% include "partials/footer.html.twig" %}
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

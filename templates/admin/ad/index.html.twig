@@ -1,0 +1,76 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Administration des annonces{% endblock %}
+
+{% block body %}
+
+{# <div class="container mt-5"> #}
+    {# <a href="{{ path('admin_ads_new') }}" class="btn btn-success mb-5" style="float: right"><strong><i class="fas fa-plus"></i> AJOUTER</strong></a> #}
+    {# <h1 class="mb-5">Annonces publiées</h1> #}
+
+<div class="container mt-5">
+    {# <h1 class="my-5">Administration des commentaires</h1> #}
+    <h1 class="mt-5 mb-5">Annonces publiées ~ <span class="bg-warning text-dark p-2 rounded-lg rounded-circle">{{ stats.validatedAd }}</span></h1>
+
+    {% if stats.waitingComment > 0 %}
+        {# <a href="{{ path('admin_comment_toValidate') }}"><h2 class="bg-danger p-2 mt-3 text-light" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle fa-2x"></i><strong> {{ stats.waitingComment }} commentaire(s)</strong> en attente de validation</h2></a> #}
+        <a href="{{ path('admin_ads_toValidate') }}" class="mb-4"><h2 class="bg-danger p-3 mt-3 text-light rounded-lg mb-4" style="font-size: 1.6em; color:white;"><i class="fas fa-exclamation-triangle"></i><strong> {% if stats.waitingAd is null %} Aucune annonce {% elseif stats.waitingAd == 1 %} {{ stats.waitingAd }} annonce {% else %} {{ stats.waitingAd }} annonces {% endif %} en attente de validation !</h2></a>
+    {% endif %}
+
+    <table class="table table-hover">
+        <thead class="align-items-center">
+            <tr>
+                <th class="align-middle">Id</th>
+                <th class="align-middle">Titre</th>
+                <th class="align-middle">Auteur</th>
+                <th class="text-center align-middle">Réservations</th>
+                <th class="text-center align-middle">Note</th>
+                <th class="text-center align-middle">Action</th>
+            </tr>
+        </thead>
+        <tbody >
+        {% for ad in pagination.adValidated %}
+        {# {% for ad in ads %} #}
+            <tr >
+                <td class="align-middle">{{ ad.id }}</td>
+                <td class="align-middle">{{ ad.title }}</td>
+                <td class="align-middle" style="width: 20%;">
+                    <img src="{{ ad.author.picture }}" alt="Avatar de {{ ad.author.fullname }}" class="avatar avatar-mini mr-2">{{ ad.author.fullname }}
+                    
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge badge-primary p-2">{{ ad.bookings | length }}</span>
+                </td>
+                <td class="text-center align-middle">
+                    <span class="badge badge-warning text-dark p-2">{{ ad.avgRatings | number_format(1, ',', ' ') }}</span>
+                </td>
+                <td class="align-middle text-center">
+                    <a href="{{ path('admin_ads_edit', {'id': ad.id}) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <a href="{{ path('admin_ads_delete', {'id': ad.id}) }}" class="btn btn-danger"><i class="fas fa-trash" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'annonce n°  ?`)"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{# <div>
+    <ul class="pagination">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active">
+      <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</div> #}
+
+{{ pagination.display() }}
+
+</div>
+
+{% endblock %}

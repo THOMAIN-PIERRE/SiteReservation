@@ -1,0 +1,412 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modification de l'annonce numéro : {{ad.id}}{% endblock %}
+
+{% form_theme form _self %}  {# On appel le thème de formulaire (personnalisation) pour ce form et qui se trouve dans ce même fichier (_self = fichier courant) #}
+
+{% block stylesheets %}
+
+<!-- jQuery Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Google Maps Javascript library - Ma clé d'API = AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyAJ7lsnJFpNaSPXhgsvoGJYmXtm6A3Xo6E"></script>
+
+
+<script>
+
+var searchInput = 'admin_ad_address';
+
+$(document).ready(function () {
+    var autocomplete;
+    autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+        types: ['geocode'],
+    });
+	
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var near_place = autocomplete.getPlace();
+        document.getElementById('admin_ad_latitude').value = near_place.geometry.location.lat();
+        document.getElementById('admin_ad_longitude').value = near_place.geometry.location.lng();
+		
+        document.getElementById('latitude_view').innerHTML = near_place.geometry.location.lat();
+        document.getElementById('longitude_view').innerHTML = near_place.geometry.location.lng();
+    });
+});
+
+$(document).on('change', '#'+searchInput, function () {
+    document.getElementById('admin_ad_latitude').value = '';
+    document.getElementById('admin_ad_longitude').value = '';
+	
+    document.getElementById('latitude_view').innerHTML = '';
+    document.getElementById('longitude_view').innerHTML = '';
+});
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container mb-5">
+    <h1 class="my-5 text-center">Modifier une annonce</h1>
+
+    <div class="container mb-5 alert alert-light p-3">
+    {# <div class="container alert alert-light p-3"> #}
+
+    <p style="font-size: 1.5rem"> Vous êtes sur le point de modifier l'annonce suivante appartenant à <strong>{{ad.author.fullName}} <img src="{{ad.author.picture}}" alt="propriétaire" class="avatar avatar-header"></strong></p>
+    <table class="table table-striped mt-4 rounded-lg">
+				<thead class="table-dark ">
+					<tr class="text-warning">
+						<th class="text-center border-dark" scope="col">PHOTO</th>
+						<th class="text-center border-dark" scope="col">LOGEMENT</th>
+						<th class="text-center border-dark" scope="col">PRIX</th>
+						<th class="text-center border-dark" scope="col">VILLE</th>
+					</tr>
+				</thead>
+					<tr class="bg-success">
+                        <td class="text-center text-light align-middle">
+                            <img src="{{ ad.coverImage }}" class="img-fluid border border-light text-center">
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.title}}</b></h6>
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.price}} € / nuitée</b></h6>
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ ad.city }}</b></h6>
+						</td>
+					</tr>
+			</table>
+        </div>
+    </div>
+
+
+{# </div> #}
+    {# <div class="row mb-1 bg-success rounded-lg p-2 align-items-center">
+        <div class="col-md-3">
+            <h6 class="text-center text-light"><b>PHOTO</b></h6>
+        </div>
+        <div class="col-md-5 align-middle">
+            <h6 class="text-center text-light"><b>LOGEMENT</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="text-center text-light"><b>PRIX</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="text-center text-light"><b>VILLE</b></h6>
+        </div>
+    </div>
+    <div class="row mb-3 bg-success rounded-lg p-4 align-items-center">
+        <div class="col-md-3">
+            <img src="{{ ad.coverImage }}" class="img-fluid border border-light text-center">
+        </div>
+        <div class="col-md-5 align-middle">
+            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.title}}</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.price}} € / nuitée</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="mb-4 text-center text-light align-middle"><b>PARIS XVème</b></h6>
+        </div>
+    </div> #}
+
+<div class="container-fluid">  
+
+    {{form_start(form)}}
+    <div class="row">
+        <div class="col">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Corriger l'annonce ?</h4>
+                </div>
+                <div class="card-body">
+                    {# {{form_widget(form)}} #}
+                    {# {{form(form)}} #}
+                    {# {{form_row(form.title)}}
+                    {{form_row(form.price)}}
+                    {{form_row(form.introduction)}}
+                    {{form_row(form.content)}} #}
+                    {# {{form(form.content)}}
+                    {{form(form.titre)}}
+                     #}
+
+
+                    {# <button type="submit" class="btn btn-primary my-3">
+                        <i class="fas fa-check"></i>
+                        <b>Enregistrer les modifications</b>
+                    </button> #}
+
+                    <div class="container bg-light rounded-lg p-3 mb-3">
+    {{form_start(form)}}
+
+    <h2 class="text-center">Informations générales</h2>
+    
+    {# {{form_widget(form)}} #}
+    {{form_row(form.title)}}
+    <div class="row">
+    <div class="col-md-5">
+    {{form_row(form.city)}}
+    </div>
+    <div class="col-md-4">
+    {{form_row(form.category)}}
+    </div>
+    <div class="col-md-3">
+    {{form_row(form.tel)}}
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-7">
+    {{form_row(form.address, {'attr': {'id': 'admin_ad_address'}}) }}
+    {# <label>Adresse</label>
+    <input type="text" class="form-control" id="search_input" placeholder="Saisissez une adresse"/> #}
+    </div>
+    <div>
+    {{form_row(form.latitude, {'attr': {'id': 'admin_ad_latitude'}}) }}
+    {# <input type="hidden" id="loc_lat" /> #}
+    </div>
+    <div>
+    {{form_row(form.longitude, {'attr': {'id': 'admin_ad_longitude'}}) }}
+    {# <input type="hidden" id="loc_long" /> #}
+    </div>
+    <div class="col-md-2">
+    {{form_row(form.zipCode)}}
+    </div>
+    <div class="col-md-3">
+    {{form_row(form.country)}}
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-md-3">
+    {{form_row(form.price)}}
+    </div>
+    <div class="col-md-3">
+    {{form_row(form.rooms)}}
+    </div>
+    <div class="col-md-3">
+    {{ form_row(form.bed) }}
+    </div>
+    <div class="col-md-3">
+    {{ form_row(form.traveler) }}
+    </div>
+    </div>
+</div>
+<div class="text-center my-2">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+<div class="container bg-light rounded-lg p-3 mb-3">
+
+    <h2 class="text-center mb-4">Visuels de l'annonce</h2>
+ 
+    <div class="row">
+    <div class="col-md-9">
+        {{form_row(form.coverImage)}}
+    </div>
+    <div class="col-md-3">
+        <img src="{{ ad.coverImage}}" class="img-fluid" alt=""/>
+    </div>
+    </div>
+     <div class="row">
+    <div class="col-md-12">
+        {{form_row(form.images)}}
+    </div>
+    </div>
+
+
+    {# <button type="submit" class="btn btn-success"><b>VALIDER LES MODIFICATIONS</b></button> #}
+
+</div>
+<div class="text-center my-2">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+<div class="container bg-light rounded-lg p-3 mb-3">
+
+    <h2 class="text-center">Détails de l'annonce</h2>
+
+    {{form_row(form.introduction)}}
+    {{form_row(form.text)}}
+
+<div class="text-center my-4">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+    {# <p><b class="bg-success">{{ form_row(form.submit) }}</b></p> #}
+
+    {# <div class="row alert alert-light rounded-lg"> #}
+        <div class="col-md-8 bg-success text-light font-weight-bold rounded-lg p-3">
+            {{form_row(form.status)}}
+        </div>
+
+        <p><b class="bg-success mt-4">{{ form_row(form.submit) }}</b></p>
+
+        {# </div> #}
+        {# <button type="submit" class="btn btn-success mt-3 mb-4">
+            <i class="fas fa-check"></i> <b>Enregistrer les modifications</b>
+        </button> #}
+    {# </div> #}
+
+    {{form_end(form)}}
+
+</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Les réservations</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">Id</th>
+                                <th class="text-center align-middle">Voyageur</th>
+                                <th class="text-center align-middle">Date de réservation</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {# Boucle dans le but de multiplier ce "<tr>" autant de fois qu'il y a de réservation dans l'annonce #}
+                            {% for booking in ad.bookings %}   {# RAPPEL: ad.bookings représente un tableau de réservation de l'annonce #}
+                            <tr>
+                                <td class="text-center align-middle">{{booking.id}}</td>
+                                <td class="text-center align-middle">{{booking.booker.fullName}}</td>
+                                <td class="text-center align-middle">{{booking.createdAt | date('d/m/Y H:i')}}</td>  {# Date de la création avec l'heure et minute pour le "H:i" #}
+                                <td class="text-center align-middle">
+                                    <a href="{{ path('admin_booking_edit', {'id': ad.id}) }}" class="btn btn-primary">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card bg-light mt-5">
+                <div class="card-header">
+                    <h4 class="card-title text-center">Les commentaires</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">Id</th>
+                                <th class="text-center align-middle">Voyageur</th>
+                                <th class="text-center align-middle">Note</th>
+                                <th class="text-center align-middle" class="text-center align-middle">Commentaire</th>
+                                <th class="text-center align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {# Boucle dans le but de multiplier ce "<tr>" autant de fois qu'il y a de commentaire pour l'annonce #}
+                            {% for comment in ad.comments %}   {# RAPPEL: ad.comment représente un tableau de commentaires de l'annonce #}
+                            <tr>
+                                <td class="text-center">{{comment.id}}</td>
+                                <td class="text-center">{{comment.author.fullName}}</td>
+                                <td class="text-center">{{comment.rating}}</td>
+                                <td class="align-middle">{{comment.content | slice(0,200) | raw }} ...</td>
+                                <td class="text-center">
+                                    <a href="{{ path('admin_comment_edit', {'id': ad.id}) }}" class="btn btn-primary">
+                                        <i class="fas fa-pen"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+    {{form_end(form)}}
+</div>
+
+{% endblock %}
+
+{# Je défini un thème de formulaire !!!#}
+{# On va surcharger la façon dont une row s'affiche #}
+{% block _admin_ad_images_entry_row %}
+    {# {{dump() }}   pour voir toutes les variables disponibles dans ce template #}
+    <div id="block_{{id}}">   {# identifiant qui servira en javascript à supprimer cette div #}
+    {{form_widget(form)}}   {# Affichage des champs d'image et caption ATTENTION : ici, form désigne 1 entrée de la collection des images et plus le formulaire en entier #}
+    </div>
+{% endblock %}
+
+{# Que se passe t'il quand on appelle le widget pour le champs _ad_images #}
+{% block _admin_ad_images_widget %}
+    {{form_widget(form)}}
+{% endblock %}
+
+{# Quand je fais un widget sur une image de la collection que doit-on afficher ? #}
+{# On va surcharger un widget #}
+{% block _admin_ad_images_entry_widget %}
+    <div class="row align-items-center border border-success mb-3">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-8 m-auto">
+                    {% if value %}
+                        {{ form_row(form.url) }}
+                    {% endif %}
+                </div>
+                <div class="col-4 mt-3">
+                    {% if value %}
+                        <img src="{{ value.url }}" class="img-fluid" alt="">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-3">
+            {{ form_row(form.caption) }}
+        </div>
+        <div class="col-12 text-center mb-3">
+            {# BOUTON DE SUPPRESSION (AVEC LA POUBELLE) #}
+            <!-- On donne à notre bouton un data-action="delete" pour dire pour le cibler, et un data-target="id" pour dire qui on veut supprimer (ici la div id="block_id") -->
+            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{id}}">
+            <i class="fas fa-trash"></i>
+            <b>SUPPRIMER</b>
+            </button>
+        </div>
+    </div>
+{% endblock %}
+
+{# On va surcharger un bloc Javascript #}
+{% block javascripts %}
+    {# <script>
+    GESTION DE LA SUPPRESSION DES IMAGES (collection , image + caption) QUAND ON APPUIE SUR LE BOUTON AVEC LA POUBELLE
+        $(document).ready(function() {   // Lorsque le documment est prêt, on fait cette fonction
+        Tout les élément dont l'attribut est data-action="delete" (notre bouton), lorqu'on click dessus (évenement) alors...
+            $('[data-action="delete"]').on('click', function(){
+                const target = this.dataset.target;   // On stock dans target 1
+                 console.log(target); // Affiche dans la console lorsqu'on click sur le bouton de suppression : #block_annonce_image_0 ou 1 ou 3 selon le bouton cliqué
+                $(target).remove();   // On supprime donc la div avec l'id #block_annonce_image_0 ou 1 ...
+        });
+   });
+
+    </script> #}
+
+
+    <script>
+        $(document).ready(function() {   
+            $('[data-action="delete"]').on('click', function(){
+                const target = this.dataset.target;   
+                $(target).remove();   
+        });
+    });
+
+    </script>
+    
+{% endblock %}
+

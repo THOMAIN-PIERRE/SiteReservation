@@ -1,0 +1,48 @@
+{% set url = path('ads_show', {'slug': ad.slug}) %}
+
+
+    
+    <div class="col-md-4">
+        <div class="card bg-light mb-3" style="box-shadow: 10px 10px 10px grey;">
+            <a href="{{url}}">
+            <div class="card-header text-left bg-success text-light">
+                {# <div> #}
+                    {# <div class="row"> #}
+                        {# <div class="col-md-12"> #}
+                            <span class="text-left" style="font-size: 1.4rem;"><i class="fas fa-map-marker-alt text-light"></i><b> {{ad.city | upper}}</b></span><br>
+                        {# </div> #}
+                        {# <div class="col-md-3">
+                            <span class="float-right badge badge-dark text-warning" style="font-size: 0.9rem;"><i>{{ad.category | upper}}</i></span><br>
+                        </div> #}
+                    {# </div> #}
+                {# </div> #}
+                
+                {{ad.rooms}} chambres, <strong>{{ad.price| number_format(2, ',', ' ')}} &euro; / nuit</strong><br>
+
+                {% if ad.comments|length > 0 %}
+                    {% include "partials/rating.html.twig" with {'rating': ad.avgRatings} %}
+                {% else %}
+                    <small>Pas encore de note</small>
+                {% endif %}
+
+                <span class="float-right badge badge-dark text-warning" style="font-size: 0.9rem;"><i>{{ad.category | upper}}</i></span><br>
+            </div>
+            <a href="{{url}}">
+                {# <img src="{{ad.coverImage}}" alt="Image de l'appartement" class="img-fluid" style="height: 200px; width: 100%; display: block"> #}
+                <img src="{{ad.coverImage}}" alt="Image de l'appartement" style="height: 200px; width: 100%; display: block">
+            </a>
+            <div class="card-body">
+                <a href="{{url}}" style="text-decoration: none;">
+                <h4 class="card-title mb-5" style="height: 5rem;"><a href="{{url}}" style="text-decoration: none;">{{ad.title}}</h4>
+                {# <p class="card-text mb-4" style="height: 5rem;"><a href="{{url}}" style="text-decoration: none;">{{ad.introduction | slice(0,150)}}</p> #}
+                <p class="card-text mb-3" style="height: 5rem;"><a href="{{url}}" style="text-decoration: none;">{{ad.introduction}}</p>
+                </a>
+                <div class="d-flex justify-content-between">
+                    <a href="{{url}}" class="btn btn-success float-left btn-md mt-3 mb-2 p-2"><b>En savoir <i class="fas fa-plus-circle"></i></b></a>
+                    {% if app.user and app.user == ad.author %}
+                    <a href="{{path('ads_edit', {'slug': ad.slug})}}" class="btn btn-danger mt-3 btn-md mb-2 p-2"><b>Modifier l'annonce</b></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>

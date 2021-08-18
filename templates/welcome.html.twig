@@ -1,0 +1,84 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/app.css">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+
+    
+
+<div class="container text-dark">
+<div class="row">
+<div class="col-md-8">
+    <div class="text-left">
+        <p class="text-light" style="font-size: 3.5rem; font-family: 'Permanent Marker', cursive;">Bienvenue sur Loc'Appart</p>
+        <p class="text-light" style="font-size: 1.2rem; font-family: 'Permanent Marker', cursive;">Nous rapprochons les voyageurs des propriétaires</p>
+        <p class="text-light" style="font-size: 1.2rem; font-family: 'Permanent Marker', cursive;">Profitez des meilleures opportunités pour voyager, gagnez de l'argent en proposant vos biens à la location !</p>
+    </div>
+</div>
+<div class="col-md-4 my-auto">
+    <div class="text-center">
+        <p><a href="{{ path('homepage') }}" class="btn btn-danger btn-lg text-light"><b class="mr-2" style="font-size: 1.9rem; font-family: 'Permanent Marker', cursive;">NOS ANNONCES</b> <i class="fas fa-arrow-circle-right fa-2x"></i></a></p>
+        {# <i class="fas fa-walking"></i> #}
+        {# <i class="fas fa-plane"></i> #}
+        {# <i class="fas fa-plane-departure"></i> #}
+        {# <i class="fas fa-subway"></i> #}
+        {# <i class="fas fa-hiking"></i> #}
+
+        {# <i class="fas fa-arrow-circle-right"></i> #}
+        {# <i class="fas fa-chevron-right"></i> #}
+    </div>
+</div>
+</div>
+</div>
+
+{# https://i.ibb.co/FYsfbMz/houses.png #}
+
+
+    {# <div class="jumbotron mt-3 alert alert-success">
+        <h1 class="display-3 text-center">Bienvenue sur <img src="/img/logo-loc-appart3.png" alt="logo Loc'Appart" class="rounded-lg" ></h1>
+        <p class="lead">Nous mettons en relation les voyageurs et les propriétaires qui veulent profiter d'opportunités et gagner de l'argent en proposant leur bien à la location</p>
+        <hr class="my-4">
+        <p>Vous êtes en voyage ? Et vous voulez voir où vous pourrez loger pour votre prochain déplacement ?</p>
+        <p class="lead">
+            <a class="btn btn-danger btn-lg mt-2" href="{{ path('ads_index') }}" role="button"><b>NOS ANNONCES</b></a>
+        </p>
+    </div>
+
+    <h2 class="h1 my-5">Nos appartements stars</h2>
+
+    <div class="row">
+        {% for data in ads %}
+            {% include "ad/_ad.html.twig" with {'ad': data.annonce}%}
+        {% endfor %}
+    </div>
+
+    <h2 class="h1 my-5">Nos propriétaires stars</h2>
+
+    <div class="row">
+        {% for data in users %}
+        <div class="col">
+            <div class="card border-secondary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">{{data.user.fullName}}</h4>
+
+                    <hr>
+
+                    <div class="card-text">
+                        <img src="{{data.user.picture}}" alt="Avatar de {{data.user.firstName}}" class="float-left mr-3">
+                        <p>{{data.user.introduction}}</p>
+                        <a href="{{path('user_show', {'slug': data.user.slug})}}" class="btn btn-success float-right">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div> #}
+ 
+{% endblock %}

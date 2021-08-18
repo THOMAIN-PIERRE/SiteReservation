@@ -1,0 +1,77 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+
+
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                    <div class="row bg-warning text-dark mb-3 d-flex justify-content-between p-2">
+                        <h1 class="card-title"><i class="fas fa-percentage"></i> <b>STATISTIQUES</b><h1>
+                        <span class="badge badge-dark text-warning"><a href="{{ path('admin_dashboard') }}" class="text-warning my-auto"><i class="fas fa-tachometer-alt"></i> Retour au Dashboard</a></span>
+                    </div>  
+                        
+                    <h1 class="rounded p-1 bg-dark text-light text-center mt-3 p-3" id="chart-1" style="color:white; text-shadow: 4px 6px 4px black;"><b>Nombre de réservations / jour</b></h1>
+                    <div class="container">
+                        <canvas id="reservations" width="900" height="400" class="mt-5"></canvas> 
+                    </div>
+                    <h1 class="rounded bg-dark text-light text-center mt-5 p-3" id="chart-2" style="color:white; text-shadow: 4px 6px 4px black;"><b>Nombre d'annonces / catégorie de logement</b></h1>
+                    <div class="container">
+                        <canvas id="categories" width="900" height="400" class="mt-5"></canvas>
+                    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+  <script src="https://kit.fontawesome.com/83f59567d3.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+
+    {# Pour initialiser notre graphique ! #}
+    <script>
+        {# Je vais chercher l'élément de ma page qui a l'id categories #}
+        let categories = document.querySelector("#categories")
+        {# Je passe l'élément qui va contenir mon graphique dans l'objet Chart() de chart.js et ensuite, je passe un certain nombre d'options #}
+          let categGraph = new Chart(categories, {
+        type: "pie",
+        data: {
+            labels: {{ categoryName | raw}}, //le filtre TWIG RW permet au JSON de s'afficher correctement
+            datasets: [{
+                label: "Répartition des produits par catégories",
+                data: {{ categoryCount | raw}},
+                backgroundColor: {{ categoryColor | raw}},
+            }]
+        }
+    })
+
+    let reservations = document.querySelector("#reservations")
+    let resGraph = new Chart(reservations, {
+        type: "line",
+        data: {
+            labels: {{ dates | raw }},
+            datasets: [{
+                label: "Nombre de réservations",
+                data: {{ bookingsCount|raw }}
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    })
+
+    
+
+    </script>
+
+{% endblock %}

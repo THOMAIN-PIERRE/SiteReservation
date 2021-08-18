@@ -1,0 +1,64 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    
+        <div class="container">
+            {# <div class="row">
+                <div class="col table-responsive mt-5"> #}
+                    {# <a href="{{ path('admin_role_new') }}" class="btn btn-success mb-5" style="float: right"><strong><i class="fas fa-plus"></i> AJOUTER</strong></a> #}
+                    <h1 class="mt-5 mb-5">PROFIL D'ACTIVITE ~ <span class="bg-warning text-dark p-2 rounded-lg rounded-circle">{{ stats.validatedUser }}</span></h1>
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th class="text-center align-middle">#</th>
+                                <th class="text-center align-middle">Nom</th>
+                                <th class="text-center align-middle">Prénom</th>
+                                <th class="text-center align-middle">Email</th>
+                                {# <th class="text-center align-middle">Date d'inscription</th> #}
+                                <th class="text-center align-middle">Rôle</th>
+                                <th class="text-center align-middle">Nb de réservations</th>
+                                <th class="text-center align-middle">Nb de commentaires</th>
+                                <th class="text-center align-middle">Nb d'annonces</th>
+                            </tr>
+                        <thead>
+                        {% for user in pagination.userValidated %}
+                                <tr>
+                                    <td class="text-center align-middle">{{user.id}}</td>
+                                    <td class="text-center align-middle"><b>{{user.lastname}}</b></td>
+                                    <td class="text-center align-middle"><b>{{user.firstname}}</b></td>
+                                    <td class="text-center align-middle"><b>{{user.email}}</b></td>
+                                    {# <td class="text-center align-middle align-items-center">{{user.createdAt | date('d/m/y H:i')}}</td> #}
+                                    <td class="text-center align-middle align-items-center font-weight-bold">
+                                    <!-- On boucle sur les rôles -->
+                                    {% for role in user.roles %}
+                                        {% if role == "ROLE_USER" %}
+                                            UTILISATEUR
+                                        {% elseif role == "ROLE_CREATOR" %}
+                                            CONTRIBUTEUR
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            ADMINISTRATEUR
+                                        {% endif %}
+                                        {# {{ role }} #}
+                                    {% endfor %}
+                                    </td>
+                                    <td class="text-center align-middle align-items-center"><span class="bg-success rounded-lg text-light font-weight-bold p-2">{{ user.bookings | length }}</span></td>
+                                    <td class="text-center align-middle align-items-center"><span class="bg-warning rounded-lg text-dark font-weight-bold p-2">{{ user.comments | length }}</span></td>
+                                    <td class="text-center align-middle align-items-center"><span class="bg-info rounded-lg text-light font-weight-bold p-2">{{ user.ads | length }}</span></td>
+                                    {# <td class="text-center align-middle"> #}
+                                        {# <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-success mr-2 mb-2"><i class="fas fa-edit" aria-hidden="true"></i></a> #}
+                                        {# <a href="{{ path('admin_user_delete', {'id': user.id}) }}"class="btn btn-danger mr-2 mb-2"><i class="fas fa-trash"></i></a> #}
+                                    {# </td> #}
+                                </tr>
+                        {% endfor %}
+                    </table>
+
+                    {{ pagination.display() }}
+
+                {# </div>
+            </div> #}
+        </div>
+    </div>
+
+ {% endblock %}  

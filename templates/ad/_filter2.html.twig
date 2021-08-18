@@ -1,0 +1,121 @@
+<div style="display: block; position: sticky; top: 8vh;">
+{{ form_start(form, {attr: {class: 'filter'}}) }}
+{# <div class="container"> #}
+    {# {{ form_start(form, {attr: {class: 'filter'}}) }} #}
+{# <div class="col-md-12"> #}
+<div class="bg-danger rounded-lg p-2 text-dark m-auto">
+
+    <h2 class="text-center text-light"><i class="fas fa-sort"></i> <b>FILTRER</b></h2>
+    <hr>
+    {# <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div> #}
+    {# <div class="col-md-12 my-5">
+        <h4 class="text-light text-center"><i class="fas fa-filter"></i> <b>STATUT</b></h4>
+        <h4 class="mt-4"><b>{{ form_row(form.status) }}</b></h4>
+    </div>
+    <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div> #}
+    
+    {# <div class="col-md-3">
+        <p class="text-light text-center"><i class="fas fa-map-marker-alt"></i> <b>MOT-CLE</b></p>
+        <h4><b>{{ form_row(form.city) }}</b></h4>
+    </div> #}
+    <div class="col-md-12 my-5">
+        <h4 class="text-light text-center"><i class="fas fa-map-marker-alt"></i> <a href="#filtrer" style="text-decoration: none; color: white;"><b>VILLE</b></a></h4>
+        <h4 class="mt-4"><b>{{ form_row(form.city) }}</b></h4>
+    </div>
+    <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div>
+    <div class="col-md-12 my-5">
+        <h4 class="text-light text-center"><i class="fas fa-home"></i> <a href="#filtrer" style="text-decoration: none; color: white;"><b>LOGEMENT</b></a></h4>
+        <h5 class="mt-4 text-dark"><b>{{ form_row(form.categories) }}</b></h5>
+    </div>
+    <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div>
+    <div class="col-md-12 my-5">
+        <h4 class="text-light text-center"><i class="fas fa-coins"></i> <a href="#filtrer" style="text-decoration: none; color: white;"><b>PRIX</b></a></h4>
+        <div class="row d-flex justify-content-around text-center">
+            <div class="col-md-6 text-light mt-3">
+                <b>{{ form_row(form.min) }}</b>
+            </div>
+            <div class="col-md-6 text-light mt-3">
+                <b>{{ form_row(form.max) }}</b>
+            </div> 
+        </div>
+    </div>
+    {# <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div>
+    <div class="col-md-12 my-5">
+        <h4 class="text-light text-center"><i class="fas fa-star"></i> <b>NOTE / 5</b></h4>
+        <div class="row d-flex justify-content-around text-center">
+            <div class="col-md-6 text-light mt-3">
+                <b>{{ form_row(form.rateMin) }}</b>
+            </div>
+            <div class="col-md-6 text-light mt-3">
+                <b>{{ form_row(form.rateMax) }}</b>
+            </div> 
+        </div>
+    </div> #}
+    <a href="#"><hr></a>
+    {# <div class="text-center mt-3 d-flex justify-content-around">
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+        <span class="dot-white"></span>
+    </div> #}
+    {# <div class="col-md-2">
+        <p class="text-light text-center"><i class="fas fa-star"></i> <b>TYPE DE LOGEMENT</b></p>
+        <h4><b>{{ form_row(form.categories) }}</b></h4>
+    </div> #}
+    <div class="col-md-12 text-center my-3">
+        <h4 id="filtrer"><b>{{ form_row(form.submit) }}</b></h4>
+    </div>
+</div>
+{# </div> #}
+{# </div> #}
+{{ form_end(form) }}
+</div>

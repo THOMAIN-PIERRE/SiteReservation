@@ -1,0 +1,18 @@
+<span class="rating">
+    {% for i in 1.00 .. 5.00 %}
+        {% if i <= rating %}
+            <i class="fas fa-star"></i>
+        {% else %}
+            <i class="far fa-star"></i>
+        {% endif %}
+    {% endfor %}
+
+        {# {% if i == 0 %}
+            <i class="far fa-star"></i>
+        {% elseif i <= rating %}
+            <i class="fas fa-star"></i>
+        {% else %}
+            <i class="far fa-star"></i>
+        {% endif %} #}
+
+</span>

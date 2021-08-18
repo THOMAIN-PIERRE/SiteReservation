@@ -1,0 +1,37 @@
+{% extends "admin/base.html.twig" %}
+
+{% block title %}Modification du commentaire n° {{comment.id}}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1 class="my-5">Modification du commentaire n° {{comment.id}}</h1>
+        <div class="alert alert-success align-items-end">
+            <strong>Annonce liée : </strong> {{comment.ad.title}}<br>
+            <strong>Auteur : </strong> {{comment.author.fullName}} <img src="{{app.user.picture}}" alt="propriétaire" class="avatar avatar-header border border-light mt-2 mb-2"><br>
+            <strong>Date de création : </strong>{{comment.createdAt|date('d/m/y H:i')}}<br><br>
+            <strong class="mb-2">Note attribuée :</strong> {{comment.rating}}
+        </div>
+
+    {{form_start(form)}}
+
+    {# {{form_widget(form)}} #}
+
+    <div class="row alert alert-light rounded-lg">
+        <div class="col-md-9">
+            {{form_row(form.content)}}
+        </div>
+        <div class="col-md-3">
+            {{form_row(form.rating)}}
+            {{form_row(form.status)}}
+        </div>
+        <button type="submit" class="btn btn-success mt-3 mb-4">
+            <i class="fas fa-check"></i> <b>Enregistrer les modifications</b>
+        </button>
+    </div>
+
+
+    {{form_end(form)}}
+</div>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+@import url('./bootstrap.min.css');
+
+div.textducarousel h5, div.textducarousel p {
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5) !important;
+    color: white !important;
+}
+
+div.container, div.container-fluid {
+    margin-top: 20px;
+}
+
+div.ad-title {
+    padding: 2em;
+    background-size: cover;
+    background-position: center center;
+}
+
+
+div.ad-title h1, div.ad-title p {
+    color: white;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+div.ad-title .btn {
+    margin-top: 2em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+.avatar {
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+
+.avatar-medium {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.avatar-header {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.avatar-mini {
+    max-width: 35px;
+    max-height: 35px;
+}
+.logo-mini {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+
+.navbar, a.navbar-brand {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    color: red !important;
+}
+
+.rating i {
+    color: yellow;
+}
+
+.alert a {
+    text-decoration: none;
+}
+
+.avatar-micro {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    /* overflow: visible; */
+    text-align: center;
+    height: 5px;
+}
+
+hr:after {
+    background: #fff;
+    content: '§';
+    padding: 0 6px;
+    position: relative;
+    top: -13px;
+}
+
+.admin-footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+/*-------------------------------*/
+/* #cloud{
+    width: 230px;
+    height: 60px;
+    border-radius:50px;
+    background: #f57070;
+    position: relative;
+    content:"Voir nos annonces";
+    color: white;
+    z-index: 1000;
+}
+#cloud:before{
+    position: absolute;
+    content:"Thomain";
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+   
+    background: orange;
+    bottom:30px;
+    left:30px;
+    z-index: -1000;
+}
+#cloud:after{
+    position: absolute;
+    content:"Pierre";
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: blue;
+    bottom: 20px;
+    left:90px;
+} */
+
+/*-------------------------------*/
+.cover-image {
+    background-image: url(https://i.ibb.co/FYsfbMz/houses.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    /* border: 2px dashed #333; */
+    }
+
+
+
+/* Solid border */
+hr.solid {
+    border-top: 1px solid white;
+  }
+
+/*-----------------------------------------------*/
+/* Séparateur 4 points*/
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-white {
+    height: 10px;
+    width: 10px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/*-----------------------------------------------*/

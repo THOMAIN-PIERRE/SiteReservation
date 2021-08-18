@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{user.fullName}}{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5 mb-5">
+    <div class="row align-items-center mb-4 alert alert-light p-3">
+        <div class="col-3 text-center">
+            <img src="{{user.picture}}" class="avatar mb-3" alt="Avatar de {{user.fullName}}">
+            <br>
+            <span class="badge badge-success p-2"><b>{{user.ads | length}} annonces</b></span>
+        </div>
+        <div class="col-9">
+            <h1 class="text-dark">{{user.fullName}}</h1>
+            {% if user is same as(app.user) %}
+                <div class="mt-3">
+                    <a href="{{path('account_profile')}}" class="btn btn-success mr-2 mb-2 btn-sm"><b>Modifier mon profil</b></a>
+                    <a href="{{path('account_password')}}" class="btn btn-success mb-2 btn-sm"><b>Modifier mon mot de passe</b></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <p>{{user.description | raw}}</p>
+
+    <hr class="mt-4 mb-5">
+
+    {# <h2 class="mb-4">Les annonces de {{user.fullName}}</h2> #}
+    <h2 class="mt-5 mb-5">Mes annonces - <span class="bg-warning text-dark rounded-circle p-2">{{ user.ads | length }}</span></h2>
+
+    {% if user.ads | length > 0 %}
+        <div class="row">
+            {% for ad in user.ads %}
+
+                {% include "ad/_ad.html.twig" %}
+
+            {% endfor %}
+        </div>
+    
+    {% else %}
+        
+        <div class="alert alert-warning">
+            <p><strong>{{user.fullName}}</strong> n'a pas encore d'annonce sur le site</p>
+        </div>
+    
+    {% endif %}
+</div>
+
+{% endblock %}

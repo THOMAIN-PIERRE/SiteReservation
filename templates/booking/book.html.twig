@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation : {{ad.title}} !{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <h1 class="mt-3 text-center align-items-center"><i class="far fa-handshake"></i> RESERVATION</h1> 
+</div>
+
+<div class="container mb-5">
+    <div class="container alert alert-light p-3">
+
+    <p style="font-size: 1.5rem"> Vous êtes sur le point de réserver le logement suivant appartenant à <strong>{{ad.author.fullName}} :</strong></p>
+
+    <table class="table table-striped mt-4 rounded-lg">
+				<thead class="table-dark ">
+					<tr class="text-light">
+						<th class="text-center border-dark" scope="col">PHOTO</th>
+						<th class="text-center border-dark" scope="col">LOGEMENT</th>
+						<th class="text-center border-dark" scope="col">PRIX</th>
+						<th class="text-center border-dark" scope="col">VILLE</th>
+					</tr>
+				</thead>
+					<tr class="bg-success">
+                        <td class="text-center text-light align-middle">
+                            <img src="{{ ad.coverImage }}" class="img-fluid border border-light text-center">
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.title}}</b></h6>
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.price}} € / nuitée</b></h6>
+                        </td>
+						<td class="text-center align-middle">
+                            <h6 class="mb-4 text-center text-light align-middle"><b>{{ ad.city }}</b></h6>
+						</td>
+					</tr>
+			</table>
+
+    {# <div class="row mb-1 bg-success rounded-lg p-2 align-items-center">
+        <div class="col-md-3">
+            <h6 class="text-center text-light"><b>PHOTO</b></h6>
+        </div>
+        <div class="col-md-5 align-middle">
+            <h6 class="text-center text-light"><b>LOGEMENT</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="text-center text-light"><b>PRIX</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="text-center text-light"><b>VILLE</b></h6>
+        </div>
+    </div>
+    <div class="row mb-3 bg-success rounded-lg p-4 align-items-center">
+        <div class="col-md-3">
+            <img src="{{ ad.coverImage }}" class="img-fluid border border-light text-center">
+        </div>
+        <div class="col-md-5 align-middle">
+            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.title}}</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="mb-4 text-center text-light align-middle"><b>{{ad.price}} € / nuitée</b></h6>
+        </div>
+        <div class="col-md-2">
+            <h6 class="mb-4 text-center text-light align-middle"><b>PARIS XVème</b></h6>
+        </div>
+    </div> #}
+
+    </div>
+    {# <h1>Réservez l'annonce : <em>{{ad.title}}</em></h1> #}
+    {# <div class="container bg-danger rounded-lg text-light p-3">
+        <p><i class="far fa-calendar-alt fa-2x"></i> Vous êtes sur le point de réserver le bien de <strong>{{ad.author.fullName}}</strong>, confiez nous des détails de votre séjour, nous nous occuperons du reste pou vous !</p>
+    </div> #}
+
+    {{form_start(form)}}
+    <div class="alert alert-light mt-5 p-3">
+        <h4 class="mb-5 text-center"><i class="far fa-calendar-alt fa-2x"></i> A quelles dates souhaitez-vous voyager ?</h4>
+        <div class="row mb-3">
+            <div class="col">
+                {{form_row(form.startDate)}}
+            </div>
+            <div class="col">
+                {{form_row(form.endDate)}}
+            </div>
+        </div>
+        {# <h4 class="mt-2">Vous souhaitez réserver ce logement pour <span id="days"><b class="text-success">0</b></span> <b class="text-success">nuit(s)</b></h4> #}
+        {# <h4 class="mt-2">Le tarif de la nuitée est de <b class="text-success">{{ad.price | number_format(2, ',', ' ')}} €</b></h4>
+        <h4 class="mt-2">Montant total de votre séjour : <span id="amount"><b class="text-success">...</b></span> <b class="text-success">&euro;</b></h4> #}
+
+        {# <h4 class="mt-2">Montant du séjour : <span id="amount">...</span> &euro;</h4>
+        <span id="days">0</span> nuit(s) à {{ad.price | number_format(2, ',', ' ')}} &euro; par nuit #}
+
+        <h4 class="mt-3">Vous avez un commentaire ?</h4>
+
+        {{form_row(form.comment)}}
+    {# </div> #}
+
+    <div class="container bg-success mt-4 p-3 rounded-lg">
+        <h3 class="mt-2 mb-4 text-center text-light"><b>DETAILS DE VOTRE RESERVATION</b></h3>
+        <hr>
+        <table class="table table-striped mt-4">
+				<thead class="table-dark ">
+					<tr class="text-warning">
+						{# <th class="text-center border-dark" scope="col">LOGEMENT</th>
+						<th class="text-center border-dark" scope="col">VILLE</th>
+						<th class="text-center border-dark" scope="col">DATE ARRIVEE</th>
+						<th class="text-center border-dark" scope="col">DATE DEPART</th> #}
+						<th class="text-center border-dark" scope="col">NOMBRE DE NUITEES RESERVEES</th>
+						<th class="text-center border-dark" scope="col">TARIF NUITEE</th>
+						<th class="text-center border-dark" scope="col">MONTANT TOTAL (TTC)</th>
+						{# <th class="text-center border-dark" scope="col">COMMENTAIRE</th> #}
+					</tr>
+				</thead>
+					<tr class="text-white">
+						<td class="text-center align-middle">
+                            {# <h4 class="mt-2"><span id="days"><b class="text-light">0 nuit(s)</b></span></h4> #}
+                            {# <h4 class="mt-2">Réservation pour <span id="days" class="text-light">0</span> <b class="text-light">nuit(s)</b></h4> #}
+                            <h4 class="mt-2 text-light"><span id="days">0</span> <b class="text-light">nuit(s)</b></h4>
+                        </td>
+						<td class="text-center align-middle">
+                            <h4 class="mt-2 text-light">{{ad.price | number_format(2, ',', ' ')}} <b>€</b></h4>
+                        </td>
+						<td class="text-center align-middle">
+							{# <h4 class="mt-2"><span id="amount"><b class="text-light">... €</b></span></h4> #}
+                            <h4 class="mt-2"><span id="amount" class="text-light">00,00</span> <b class="text-light">&euro;</b></h4>
+						</td>
+					</tr>
+			</table>
+        {# <h4 class="mt-2 text-light">Vous allez réserver ce logement pour <span id="days"><b>0 nuit(s)</b></span></h4>
+        <h4 class="mt-2 text-light">La nuitée vous sera facturée <b class="text-success">{{ad.price | number_format(2, ',', ' ')}} €</b></h4>
+        <h4 class="mt-2 text-light">Montant total de votre séjour : <span id="amount"><b class="text-success">...</b></span></h4> #}
+    </div>
+    </div>
+
+    <h2 class="text-center">C'est terminé ... a vos marques, prêt, voyagez !!! <i class="fas fa-plane-departure fa-2x text-success"></i></h2>
+    <p class="text-center">Voyage d'affaire ou plaisir de découvrir des lieux d'exception ? Facilitez vous la vie, choisissez Loc'Appart !</p>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success mt-3 p-3"><b><i class="fas fa-check-circle"></i> RESERVER</b></button>
+    </div>
+
+    {{form_end(form)}}
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous"></script>
+
+<!-- Pour lancer le Datetime Picker -->
+<script>
+    $(document).ready(function(){
+        $('#booking_startDate, #booking_endDate').datepicker({
+            format: 'dd/mm/yyyy',
+            datesDisabled: [
+                {% for day in ad.notAvailableDays %}
+                    "{{ day.format('d/m/Y') }}",
+                {% endfor %}
+            ],
+            startDate: new Date()
+        })
+        $('#booking_startDate, #booking_endDate').on('change', calculateAmount);
+    });
+
+    function calculateAmount() {
+
+        // On chope les dates
+        const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+        // 18/09/2020
+        // (\d+)\/(\d+)\/(\d{4})
+        // 2020-09-18
+        const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+
+        if(startDate && endDate && startDate < endDate){
+            const DAY_TIME = 24 * 60 * 60 * 1000;
+            
+            const interval = endDate.getTime() - startDate.getTime();
+            const days = interval / DAY_TIME;
+            const amount = days * {{ad.price}};
+
+            $('#days').text(days);
+            $('#amount').text(amount.toLocaleString('fr-FR'));
+        }
+    }
+</script>
+
+
+{% endblock %}
+
+
